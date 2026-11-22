@@ -5,6 +5,6 @@ class Vehicle:
     name: str
     razao_social: str
     id: str
-    address: str
-    phone: str
-    email: str
+    address: str | None = None
+    phone: str | None = None
+    email: str | None = None

@@ -19,7 +19,7 @@ class Campaign:
     vehicles: Vehicle
     agency_commission_pct: Decimal
     payment_terms: str
-    notes: str
+    notes: str | None = None
 
     def __post_init__(self):
         if self.end_date < self.start_date:

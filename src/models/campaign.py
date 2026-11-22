@@ -6,6 +6,8 @@ from .agency import Agency
 from .client import Client
 from .vehicle import Vehicle
 
+from validators.common import validate_date_interval, validate_amount, validate_pct
+
 @dataclass
 class Campaign:
     id: str
@@ -22,5 +24,11 @@ class Campaign:
     notes: str | None = None
 
     def __post_init__(self):
-        if self.end_date < self.start_date:
-            raise ValueError("end_date não pode ser anterior a start_date")
+        if not validate_date_interval(self.start_date, self.end_date):
+            raise ValueError("Invalid start/end date combination")
+        
+        if not validate_amount(self.total_budget):
+            raise ValueError("Invalid total budget")
+        
+        if not validate_pct(self.agency_commission_pct):
+            raise ValueError("Invalid comission percentage")
